@@ -26,10 +26,38 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+ext {
+
+    //For bintray and jcenter distribution
+    bintrayRepo = 'custom-edittext'
+    bintrayName = 'MuppetText'
+
+    publishedGroupId = 'kiit.tanmay'
+    libraryName = 'MuppetText'
+    artifact = 'MuppetText' //This artifact name should be the same with library module name
+
+    libraryDescription = 'Simple, clean library to manage every type of text'
+
+    siteUrl = 'https://github.com/tanmay23235616/MuppetText'
+    gitUrl = 'https://github.com/tanmay23235616/MuppetText.git'
+
+    libraryVersion = '1.0.1'
+
+    developerId = 'tanmay23235616'
+    developerName = 'Tanmay Majumdar'
+    developerEmail = 'tanmay.majumdar@nowfloats.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+
+}
+apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
+apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'

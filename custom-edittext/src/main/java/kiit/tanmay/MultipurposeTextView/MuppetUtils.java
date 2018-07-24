@@ -21,24 +21,24 @@ public class MuppetUtils {
         return instance;
     }
 
-    protected static void DisplayLog(String s ) {
+    public static void DisplayLog(String s ) {
         Log.i(MuppetUtils.class.getSimpleName() , s == null ? "null input in log" : s);
     }
 
-    protected MuppetUtils setOnGetPermissionResult(OnGetPermissionResult onGetPermissionResult) {
+    public MuppetUtils setOnGetPermissionResult(OnGetPermissionResult onGetPermissionResult) {
         this.onGetPermissionResult = onGetPermissionResult;
         return instance;
     }
 
-    protected OnGetPermissionResult getOnGetPermissionResult() {
+    public OnGetPermissionResult getOnGetPermissionResult() {
         return onGetPermissionResult;
     }
 
-    protected OnGetContact getOnGetContact() {
+    public OnGetContact getOnGetContact() {
         return onGetContact;
     }
 
-    protected MuppetUtils setOnGetContact(OnGetContact onGetContact) {
+    public MuppetUtils setOnGetContact(OnGetContact onGetContact) {
         this.onGetContact = onGetContact;
         return instance;
     }
@@ -48,15 +48,15 @@ public class MuppetUtils {
         return instance;
     }
 
-    protected HandleDataTypeInterface getHandleDataTypeInterface() {
+    public HandleDataTypeInterface getHandleDataTypeInterface() {
         return handleDataTypeInterface;
     }
 
-    protected interface OnGetPermissionResult {
+    public interface OnGetPermissionResult {
         void getPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults);
     }
 
-    protected interface OnGetContact{
+    public interface OnGetContact{
         void getContactNumber(String number) ;
     }
 }

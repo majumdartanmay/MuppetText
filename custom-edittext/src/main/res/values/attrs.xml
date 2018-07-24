@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MuppetView">
+        <attr name="fontName" format="string"/>
+        <attr name="editTextMode" format="boolean"/>
+        <attr name="numberMode" format="boolean"/>
+        <attr name="phoneNumberMode" format="boolean"/>
+        <attr name="contactPickerMode" format="boolean"/>
+        />
+    </declare-styleable>
+</resources>

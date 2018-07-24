@@ -9,7 +9,7 @@ android {
         minSdkVersion 22
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.3"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -41,23 +41,25 @@ ext {
 
     publishedGroupId = 'kiit.tanmay'
     libraryName = 'MuppetText'
-    artifact = 'MuppetText' //This artifact name should be the same with library module name
+    artifact = 'custom-edittext' //This artifact name should be the same with library module name
 
     libraryDescription = 'Simple, clean library to manage every type of text'
 
     siteUrl = 'https://github.com/tanmay23235616/MuppetText'
     gitUrl = 'https://github.com/tanmay23235616/MuppetText.git'
 
-    libraryVersion = '1.0.1'
+    libraryVersion = '0.0.3'
 
     developerId = 'tanmay23235616'
     developerName = 'Tanmay Majumdar'
     developerEmail = 'tanmay.majumdar@nowfloats.com'
+
+    organization = 'None'
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
 
 }
-apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/installv.gradle'
-apply from: 'https://raw.githubusercontent.com/numetriclabz/jcenter/master/bintrayv.gradle'
+apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/install.gradle'
+apply from: 'https://raw.githubusercontent.com/quangctkm9207/template-files/master/android/gradle/bintray.gradle'

@@ -53,7 +53,7 @@ public class PermissionActivity extends Activity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode,  String[] permissions,  int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         MuppetUtils.getInstance().getOnGetPermissionResult().getPermissionResult(requestCode , permissions , grantResults);
         finish();

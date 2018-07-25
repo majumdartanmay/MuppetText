@@ -42,7 +42,7 @@ public class MuppetUtils {
         return instance;
     }*/
 
-    protected MuppetUtils setHandleDataTypeInterface(HandleDataTypeInterface handleDataTypeInterface) {
+    public MuppetUtils setHandleDataTypeInterface(HandleDataTypeInterface handleDataTypeInterface) {
         this.handleDataTypeInterface = handleDataTypeInterface;
         return instance;
     }

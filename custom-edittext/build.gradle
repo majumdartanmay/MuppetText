@@ -6,10 +6,10 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
-        versionName "0.0.7"
+        versionName "0.0.8"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -48,7 +48,7 @@ ext {
     siteUrl = 'https://github.com/tanmay23235616/MuppetText'
     gitUrl = 'https://github.com/tanmay23235616/MuppetText.git'
 
-    libraryVersion = '0.0.7'
+    libraryVersion = '0.0.8'
 
     developerId = 'tanmay23235616'
     developerName = 'Tanmay Majumdar'

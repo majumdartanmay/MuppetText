@@ -19,10 +19,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.example.custom_edittext.R;
 import kiit.tanmay.MultipurposeTextView.Util.Constants;
-import kiit.tanmay.MultipurposeTextView.Util.PermissionActivity;
 
 @SuppressLint("AppCompatCustomView")
-public class MuppetView extends EditText implements MuppetUtils.OnGetPermissionResult , MuppetUtils.OnGetContact  {
+public class MuppetView extends EditText {
     private boolean editTextMode, numberMode, phoneNumberMode, contactPickerMode;
     public MuppetView(Context context) {
         super(context);
@@ -51,7 +50,7 @@ public class MuppetView extends EditText implements MuppetUtils.OnGetPermissionR
     }
 
 
-    public void showKeyboard() {
+    private void showKeyboard() {
         Log.i(MuppetView.class.getSimpleName(), numberMode + "");
         final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         postDelayed(new Runnable() {
@@ -68,7 +67,7 @@ public class MuppetView extends EditText implements MuppetUtils.OnGetPermissionR
     }
 
 
-    public void hideKeyboard() {
+    private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if(imm != null) {
             imm.hideSoftInputFromWindow(this.getWindowToken(), 0);
@@ -87,7 +86,7 @@ public class MuppetView extends EditText implements MuppetUtils.OnGetPermissionR
         setBackgroundResource(android.R.color.transparent);
     }
 
-    public void setAttributes(TypedArray attributes) {
+    private void setAttributes(TypedArray attributes) {
         setEditTextFont(attributes.hasValue(R.styleable.MuppetView_fontName) ? attributes.getString(R.styleable.MuppetView_fontName) : "");
         setEditTextMode(attributes.getBoolean(R.styleable.MuppetView_editTextMode, false));
         setEditTextNumberMode(attributes.getBoolean(R.styleable.MuppetView_numberMode, false));
@@ -104,7 +103,7 @@ public class MuppetView extends EditText implements MuppetUtils.OnGetPermissionR
         MuppetUtils.DisplayLog(editTextMode+" "+mode);
         setEditTextMode(editTextMode);
         setPhoneNumberMode(numberMode);
-        MuppetUtils.getInstance().setOnGetContact(this) ;
+        MuppetUtils.getInstance().setMuppetView(this);
     }
 
     private void setClickListener() {
@@ -131,7 +130,8 @@ public class MuppetView extends EditText implements MuppetUtils.OnGetPermissionR
     }
 
     private void pickYouContact() {
-        MuppetUtils.getInstance().setOnGetPermissionResult(this).setOnGetContact(this);
+      //  MuppetUtils.getInstance().setOnGetPermissionResult(this).setOnGetContact(this);
+        MuppetUtils.getInstance().setMuppetView(this);
         Intent i = new Intent(getContext() , PermissionActivity.class);
         i.setAction(Constants.PICK_CONTACT_ACTION);
         getContext().startActivity(i);
@@ -139,12 +139,12 @@ public class MuppetView extends EditText implements MuppetUtils.OnGetPermissionR
 
     @SuppressLint("MissingPermission")
     private  void makePhoneCall() {
-        MuppetUtils.getInstance().setOnGetPermissionResult(this);
+        MuppetUtils.getInstance().setMuppetView(this);
         if (permissionForCall()) {
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getText().toString()));
             getContext().startActivity(intent);
         }else {
-            MuppetUtils.getInstance().setOnGetPermissionResult(this);
+            MuppetUtils.getInstance().setMuppetView(this);
             Intent i = new Intent(getContext() , PermissionActivity.class);
             i.setAction(Constants.PERMISSION_PHONE_CALL_ACTION);
             getContext().startActivity(i);
@@ -174,8 +174,8 @@ public class MuppetView extends EditText implements MuppetUtils.OnGetPermissionR
         setEditTextMode(! phoneNumberMode);
     }
 
-    @Override
-    public  void getPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+    protected void getPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         int index = 0 ;
         switch (requestCode) {
             case Constants.PERMISSION_PHONE_CALL :
@@ -187,8 +187,8 @@ public class MuppetView extends EditText implements MuppetUtils.OnGetPermissionR
         }
     }
 
-    @Override
-    public void getContactNumber(String number) {
+
+    protected void getContactNumber(String number) {
         MuppetUtils.DisplayLog(number);
         HandleDataTypeInterface handleDataTypeInterface = MuppetUtils.getInstance().getHandleDataTypeInterface();
         if(handleDataTypeInterface != null) {

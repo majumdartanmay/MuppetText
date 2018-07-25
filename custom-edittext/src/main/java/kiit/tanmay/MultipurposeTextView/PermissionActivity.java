@@ -1,5 +1,5 @@
 
-package kiit.tanmay.MultipurposeTextView.Util;
+package kiit.tanmay.MultipurposeTextView;
 
 import android.Manifest;
 import android.app.Activity;
@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
 import kiit.tanmay.MultipurposeTextView.MuppetUtils;
+import kiit.tanmay.MultipurposeTextView.Util.Constants;
 
 import static kiit.tanmay.MultipurposeTextView.Util.Constants.PICK_CONTACT;
 
@@ -43,7 +44,7 @@ public class PermissionActivity extends Activity {
             cursor.moveToFirst();
             int column = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
             String phoneNumber = cursor.getString(column) ;
-            MuppetUtils.getInstance().getOnGetContact().getContactNumber(phoneNumber);
+            MuppetUtils.getInstance().getMuppetView().getContactNumber(phoneNumber);
         }
         finish();
     }
@@ -55,7 +56,7 @@ public class PermissionActivity extends Activity {
     @Override
     public void onRequestPermissionsResult(int requestCode,  String[] permissions,  int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        MuppetUtils.getInstance().getOnGetPermissionResult().getPermissionResult(requestCode , permissions , grantResults);
+        MuppetUtils.getInstance().getMuppetView().getPermissionResult(requestCode , permissions , grantResults);
         finish();
     }
 }

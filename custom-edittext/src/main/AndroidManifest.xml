@@ -7,7 +7,7 @@
     <application>
         <activity
                 android:theme="@android:style/Theme.Translucent.NoTitleBar"
-                android:name="kiit.tanmay.MultipurposeTextView.Util.PermissionActivity">
+                android:name="kiit.tanmay.MultipurposeTextView.PermissionActivity">
         </activity>
     </application>
 

@@ -1,6 +1,4 @@
 package kiit.tanmay.MultipurposeTextView;
-
-
 import android.util.Log;
 
 public class MuppetUtils {
@@ -24,23 +22,6 @@ public class MuppetUtils {
         Log.i(MuppetUtils.class.getSimpleName() , s == null ? "null input in log" : s);
     }
 
- /*   protected MuppetUtils setOnGetPermissionResult(OnGetPermissionResult onGetPermissionResult) {
-        this.onGetPermissionResult = onGetPermissionResult;
-        return instance;
-    }
-
-    protected OnGetPermissionResult getOnGetPermissionResult() {
-        return onGetPermissionResult;
-    }
-
-    protected OnGetContact getOnGetContact() {
-        return onGetContact;
-    }
-
-    protected MuppetUtils setOnGetContact(OnGetContact onGetContact) {
-        this.onGetContact = onGetContact;
-        return instance;
-    }*/
 
     public MuppetUtils setHandleDataTypeInterface(HandleDataTypeInterface handleDataTypeInterface) {
         this.handleDataTypeInterface = handleDataTypeInterface;

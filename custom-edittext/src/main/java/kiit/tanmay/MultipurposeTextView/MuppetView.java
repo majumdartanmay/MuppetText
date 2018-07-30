@@ -13,7 +13,6 @@ import android.support.v4.app.ActivityCompat;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -44,14 +43,13 @@ public class MuppetView extends EditText {
                Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), fontName);
                setTypeface(typeface);
            }catch (Exception ex) {
-               MuppetUtils.DisplayLog(ex.toString());
+               ex.printStackTrace();
            }
         }
     }
 
 
     private void showKeyboard() {
-        Log.i(MuppetView.class.getSimpleName(), numberMode + "");
         final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         postDelayed(new Runnable() {
             @Override
@@ -100,7 +98,6 @@ public class MuppetView extends EditText {
         this.numberMode = !mode && numberMode;
         this.editTextMode = !mode && editTextMode;
         this.phoneNumberMode = !mode && phoneNumberMode;
-        MuppetUtils.DisplayLog(editTextMode+" "+mode);
         setEditTextMode(editTextMode);
         setPhoneNumberMode(numberMode);
         MuppetUtils.getInstance().setMuppetView(this);
@@ -110,7 +107,6 @@ public class MuppetView extends EditText {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i(MuppetView.class.getSimpleName(), "called " + editTextMode);
                 if (editTextMode && !contactPickerMode) {
                     if (!phoneNumberMode) {
                         showKeyboard();
@@ -189,7 +185,6 @@ public class MuppetView extends EditText {
 
 
     protected void getContactNumber(String number) {
-        MuppetUtils.DisplayLog(number);
         HandleDataTypeInterface handleDataTypeInterface = MuppetUtils.getInstance().getHandleDataTypeInterface();
         if(handleDataTypeInterface != null) {
             handleDataTypeInterface.onGetContactString(number , this);

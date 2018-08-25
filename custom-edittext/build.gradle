@@ -48,7 +48,7 @@ ext {
     siteUrl = 'https://github.com/tanmay23235616/MuppetText'
     gitUrl = 'https://github.com/tanmay23235616/MuppetText.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
 
     developerId = 'tanmay23235616'
     developerName = 'Tanmay Majumdar'

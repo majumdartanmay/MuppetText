@@ -13,15 +13,13 @@ import android.support.v4.app.ActivityCompat;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.example.custom_edittext.R;
 import kiit.tanmay.MultipurposeTextView.Util.Constants;
 
 @SuppressLint("AppCompatCustomView")
 public class MuppetView extends EditText {
-    private boolean editTextMode, numberMode, phoneNumberMode, contactPickerMode;
+    private boolean editTextMode, numberMode, phoneNumberMode;
     public MuppetView(Context context) {
         super(context);
     }
@@ -33,7 +31,6 @@ public class MuppetView extends EditText {
                 R.styleable.MuppetView, 0, 0);
         setAttributes(typedArray);
         typedArray.recycle();
-        // more stuff
     }
 
     public void setEditTextFont(String fontName) {
@@ -49,39 +46,11 @@ public class MuppetView extends EditText {
     }
 
 
-    private void showKeyboard() {
-        final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                requestFocus();
-                setInputType(numberMode ? InputType.TYPE_CLASS_NUMBER : (phoneNumberMode
-                        ? InputType.TYPE_CLASS_PHONE : InputType.TYPE_CLASS_TEXT));
-              if(imm != null) {
-                  imm.showSoftInput(MuppetView.this, 0);
-              }
-            }
-        }, 100);
-    }
-
-
-    private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if(imm != null) {
-            imm.hideSoftInputFromWindow(this.getWindowToken(), 0);
-        }
-    }
-
 
     public void setEditTextMode(boolean mode) {
         this.editTextMode = mode;
-        setCursorVisible(editTextMode);
-        setLongClickable(editTextMode);
-        setClickable(phoneNumberMode || editTextMode);
-        setFocusable(editTextMode);
-        setSelected(phoneNumberMode || editTextMode);
-        //setKeyListener(null);
-        setBackgroundResource(android.R.color.transparent);
+        setEnabled(mode || phoneNumberMode);
+        setFocusable(mode || phoneNumberMode);
     }
 
     private void setAttributes(TypedArray attributes) {
@@ -94,44 +63,24 @@ public class MuppetView extends EditText {
     }
 
     public void setContactPickerMode(boolean mode) {
-        this.contactPickerMode = mode;
+        //this.contactPickerMode = mode;
         this.numberMode = !mode && numberMode;
         this.editTextMode = !mode && editTextMode;
         this.phoneNumberMode = !mode && phoneNumberMode;
-        setEditTextMode(editTextMode);
         setPhoneNumberMode(numberMode);
         MuppetUtils.getInstance().setMuppetView(this);
     }
 
     private void setClickListener() {
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (editTextMode && !contactPickerMode) {
-                    if (!phoneNumberMode) {
-                        showKeyboard();
-                    } else {
-                        makePhoneCall();
-                    }
-                } else {
-                   if(phoneNumberMode && ! contactPickerMode) {
-                       hideKeyboard();
-                       makePhoneCall();
-                   }else if(contactPickerMode) {
-                       pickYouContact();
-                   }
-                }
-            }
-        });
     }
 
-    private void pickYouContact() {
-      //  MuppetUtils.getInstance().setOnGetPermissionResult(this).setOnGetContact(this);
-        MuppetUtils.getInstance().setMuppetView(this);
-        Intent i = new Intent(getContext() , PermissionActivity.class);
-        i.setAction(Constants.PICK_CONTACT_ACTION);
-        getContext().startActivity(i);
-    }
+//    private void pickYouContact() {
+//      //  MuppetUtils.getInstance().setOnGetPermissionResult(this).setOnGetContact(this);
+//        MuppetUtils.getInstance().setMuppetView(this);
+//        Intent i = new Intent(getContext() , PermissionActivity.class);
+//        i.setAction(Constants.PICK_CONTACT_ACTION);
+//        getContext().startActivity(i);
+//    }
 
     @SuppressLint("MissingPermission")
     private  void makePhoneCall() {
@@ -153,10 +102,21 @@ public class MuppetView extends EditText {
 
 
 
-    public void setEditTextNumberMode(boolean editTextNumberMode) {
+    public boolean setEditTextNumberMode(boolean editTextNumberMode) {
         this.editTextMode = editTextNumberMode;
         this.numberMode = editTextNumberMode;
         this.phoneNumberMode = false;
+        return editTextNumberMode ? invokeNumberpad() : invokeTextPad();
+    }
+
+    private boolean invokeNumberpad(){
+        setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        return true;
+    }
+
+    private boolean invokeTextPad(){
+        setInputType(InputType.TYPE_CLASS_TEXT);
+        return  true;
     }
 
     public boolean isPhoneNumberMode() {
@@ -164,10 +124,11 @@ public class MuppetView extends EditText {
     }
 
     public void setPhoneNumberMode(boolean phoneNumberMode) {
-        this.editTextMode = ! phoneNumberMode && editTextMode;
-        this.numberMode = ! phoneNumberMode && numberMode;
+//        this.editTextMode = ! phoneNumberMode && editTextMode;
+//        this.numberMode = ! phoneNumberMode && numberMode;
+//        this.phoneNumberMode = phoneNumberMode;
+//        setEditTextMode(! phoneNumberMode);
         this.phoneNumberMode = phoneNumberMode;
-        setEditTextMode(! phoneNumberMode);
     }
 
 

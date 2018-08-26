@@ -84,7 +84,7 @@ public class MuppetView extends EditText {
             @Override
             public void onTextChanged(CharSequence editable, int i, int i1, int i2) {
                 HandleDataTypeInterface handleDataTypeInterface = MuppetUtils.getInstance().getHandleDataTypeInterface();
-                if(handleDataTypeInterface != null  && ! beforeCharSequence.equals(editable)){
+                if(handleDataTypeInterface != null  && ! beforeCharSequence.equals(editable) && hasFocus()){
                     handleDataTypeInterface.onTextChanged(editable.toString() , 0, 0,0,MuppetView.this);
                 }
             }

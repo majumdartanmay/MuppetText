@@ -22,6 +22,7 @@ import kiit.tanmay.MultipurposeTextView.Util.Constants;
 @SuppressLint("AppCompatCustomView")
 public class MuppetView extends EditText {
     private boolean editTextMode, numberMode, phoneNumberMode;
+    private CharSequence beforeCharSequence ;
     public MuppetView(Context context) {
         super(context);
     }
@@ -77,14 +78,14 @@ public class MuppetView extends EditText {
         addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                beforeCharSequence = charSequence;
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence editable, int i, int i1, int i2) {
                 HandleDataTypeInterface handleDataTypeInterface = MuppetUtils.getInstance().getHandleDataTypeInterface();
-                if(handleDataTypeInterface != null  && ! charSequence.toString().equals(getText().toString())){
-                    handleDataTypeInterface.onTextChanged(charSequence , i , i1,i2,MuppetView.this);
+                if(handleDataTypeInterface != null  && ! beforeCharSequence.equals(editable)){
+                    handleDataTypeInterface.onTextChanged(editable.toString() , 0, 0,0,MuppetView.this);
                 }
             }
 

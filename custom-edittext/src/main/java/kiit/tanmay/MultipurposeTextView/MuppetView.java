@@ -10,8 +10,10 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.widget.EditText;
 import com.example.custom_edittext.R;
@@ -59,7 +61,7 @@ public class MuppetView extends EditText {
         setEditTextNumberMode(attributes.getBoolean(R.styleable.MuppetView_numberMode, false));
         setContactPickerMode(attributes.getBoolean(R.styleable.MuppetView_contactPickerMode, false));
         setPhoneNumberMode(attributes.getBoolean(R.styleable.MuppetView_phoneNumberMode, false));
-        setClickListener();
+        setOnTextChangeListener();
     }
 
     public void setContactPickerMode(boolean mode) {
@@ -71,7 +73,26 @@ public class MuppetView extends EditText {
         MuppetUtils.getInstance().setMuppetView(this);
     }
 
-    private void setClickListener() {
+    private void setOnTextChangeListener() {
+        addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                HandleDataTypeInterface handleDataTypeInterface = MuppetUtils.getInstance().getHandleDataTypeInterface();
+                if(handleDataTypeInterface != null ){
+                    handleDataTypeInterface.onTextChanged(charSequence , i , i1,i2);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
 //    private void pickYouContact() {

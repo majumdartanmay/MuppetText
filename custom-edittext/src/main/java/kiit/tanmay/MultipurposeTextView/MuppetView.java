@@ -75,25 +75,25 @@ public class MuppetView extends EditText {
     }
 
     private void setOnTextChangeListener() {
-        addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                beforeCharSequence = charSequence;
-            }
-
-            @Override
-            public void onTextChanged(CharSequence editable, int i, int i1, int i2) {
-                HandleDataTypeInterface handleDataTypeInterface = MuppetUtils.getInstance().getHandleDataTypeInterface();
-                if(handleDataTypeInterface != null  && ! beforeCharSequence.equals(editable) && hasFocus()){
-                    handleDataTypeInterface.onTextChanged(editable.toString() , 0, 0,0,MuppetView.this);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+//        addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                beforeCharSequence = charSequence;
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence editable, int i, int i1, int i2) {
+//                HandleDataTypeInterface handleDataTypeInterface = MuppetUtils.getInstance().getHandleDataTypeInterface();
+//                if(handleDataTypeInterface != null  && ! beforeCharSequence.equals(editable) && hasFocus()){
+//                    handleDataTypeInterface.onTextChanged(editable.toString() , 0, 0,0,MuppetView.this);
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
     }
 
 //    private void pickYouContact() {
